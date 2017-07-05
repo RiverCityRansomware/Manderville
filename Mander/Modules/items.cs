@@ -189,25 +189,44 @@ namespace Manderville.Modules {
 
             if (itemType.ToString() == "SaintCoinach.Xiv.Items.PhysicalWeapon") { // Physical Weapon
                 Console.WriteLine($"Physical Weapon: {item.Name}");
-                
-                //var physicalWeapons = _realm.GameData
-                
-
-                //var physicalSearch = from phys in physicalWeapons
-                //                    where phys.Name.ToString().ToLower() == item.Name.ToString().ToLower()
-                //                     select phys;
-
-                //var realItem = physicalSearch.First();
+                var physicalWeapon = item as SaintCoinach.Xiv.Items.PhysicalWeapon;
 
 
+                var parameters = "";
 
-                //reply = $"__**Stats**__\n" +
-                //$"Item Level: {realItem.ItemLevel.Key}\n";
+                foreach (var param in physicalWeapon.AllParameters) {
+                    parameters += $"{param.BaseParam.Name}: `{param.Values.First()}`\n";
+                }
 
-                //Console.WriteLine(realItem.AllParameters);
+                var sources = "";
+                //Console.WriteLine($"sources: {physicalWeapon.Sources.Count()}");
+
+                //foreach (var sour in physicalWeapon.Sources) {
+                //    Console.WriteLine(sour.ToString());
+                //}
+
+                char canBeDyed = physicalWeapon.IsDyeable ? '\u2713' : '×';
+                char canbeConverted = physicalWeapon.IsConvertable ? '\u2713' : '×';
+                char isPvP = physicalWeapon.IsPvP ? '\u2713' : '×';
+
+                reply = $"__**Stats**__\n" +
+                $"Item Level: `{physicalWeapon.ItemLevel.Key}`\n" +
+                $"{parameters}\n" +
+                $"__**Misc**__\n" +
+                $"Convertable: {canbeConverted}\n" +
+                $"Dyeable: {canBeDyed}\n" +
+                $"PvP: {isPvP}\n\n";
+
+                Embed.WithDescription(reply)
+                    .WithFooter(new EmbedFooterBuilder()
+                    .WithText($"{physicalWeapon.EquipmentLevel.ToString()} {physicalWeapon.ClassJobCategory.Name}"))
+                    .Build();
+                await ReplyAsync("", embed: Embed);
 
             } else if (itemType.ToString() == "SaintCoinach.Xiv.Items.Armour") {
                 Console.WriteLine("Armour");
+                var armour = item as SaintCoinach.Xiv.Items.Armour;
+
             } else if (itemType.ToString() == "SaintCoinach.Xiv.Item") { // Generic Item
                 reply = "";
 
@@ -216,10 +235,7 @@ namespace Manderville.Modules {
                     $"```{item.Description}```\n";
                 }
 
-
-                Embed.WithDescription(reply);
-                    
-
+                Embed.WithDescription(reply).Build();
                 await ReplyAsync("", embed: Embed);
             }
 
