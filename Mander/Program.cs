@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Discord;
 using Discord.Addons.Paginator;
+using Discord.Commands;
 using Discord.WebSocket;
 using Manderville.Common;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +35,9 @@ namespace Manderville {
 
             await _client.LoginAsync(TokenType.Bot, Configuration.Load().Token);
             await _client.StartAsync();
+
+
+            
 
             var services = ConfigureServices(); 
             await new CommandHandler().Install(services);

@@ -180,30 +180,28 @@ namespace Manderville.Modules {
             }
 
             var itemType = item.GetType();
+
             
-            Console.WriteLine($"Item type: {item.GetType()}");
+            
+
             string reply;
             var Embed = new EmbedBuilder()
                     .WithTitle(item.Name)
+                    .WithUrl($"https://api.xivdb.com/item/{item.Key}")
+                    .WithThumbnailUrl($"https://secure.xivdb.com/img/game_local/{item.Key.ToString().First()}/{item.Key.ToString()}.jpg")
                     .WithColor(new Color(250, 140, 73));
 
-            if (itemType.ToString() == "SaintCoinach.Xiv.Items.PhysicalWeapon") { // Physical Weapon
-                Console.WriteLine($"Physical Weapon: {item.Name}");
+            // --------------
+            // PhysicalWeapon
+            // --------------
+            if (itemType.ToString() == "SaintCoinach.Xiv.Items.PhysicalWeapon") {
                 var physicalWeapon = item as SaintCoinach.Xiv.Items.PhysicalWeapon;
-
 
                 var parameters = "";
 
                 foreach (var param in physicalWeapon.AllParameters) {
                     parameters += $"{param.BaseParam.Name}: `{param.Values.First()}`\n";
                 }
-
-                var sources = "";
-                //Console.WriteLine($"sources: {physicalWeapon.Sources.Count()}");
-
-                //foreach (var sour in physicalWeapon.Sources) {
-                //    Console.WriteLine(sour.ToString());
-                //}
 
                 char canBeDyed = physicalWeapon.IsDyeable ? '\u2713' : '×';
                 char canbeConverted = physicalWeapon.IsConvertable ? '\u2713' : '×';
@@ -223,11 +221,319 @@ namespace Manderville.Modules {
                     .Build();
                 await ReplyAsync("", embed: Embed);
 
-            } else if (itemType.ToString() == "SaintCoinach.Xiv.Items.Armour") {
-                Console.WriteLine("Armour");
+            }
+            // -----------
+            // MagicWeapon
+            // -----------
+            else if (itemType.ToString() == "SaintCoinach.Xiv.Items.MagicWeapon") {
+                var magicWeapon = item as SaintCoinach.Xiv.Items.MagicWeapon;
+
+                var parameters = "";
+
+                foreach (var param in magicWeapon.AllParameters) {
+                    parameters += $"{param.BaseParam.Name}: `{param.Values.First()}`\n";
+                }
+
+                char canBeDyed = magicWeapon.IsDyeable ? '\u2713' : '×';
+                char canbeConverted = magicWeapon.IsConvertable ? '\u2713' : '×';
+                char isPvP = magicWeapon.IsPvP ? '\u2713' : '×';
+
+                reply = $"__**Stats**__\n" +
+                $"Item Level: `{magicWeapon.ItemLevel.Key}`\n" +
+                $"{parameters}\n" +
+                $"__**Misc**__\n" +
+                $"Convertable: {canbeConverted}\n" +
+                $"Dyeable: {canBeDyed}\n" +
+                $"PvP: {isPvP}\n\n";
+
+                Embed.WithDescription(reply)
+                    .WithFooter(new EmbedFooterBuilder()
+                    .WithText($"{magicWeapon.EquipmentLevel.ToString()} {magicWeapon.ClassJobCategory.Name}"))
+                    .Build();
+                await ReplyAsync("", embed: Embed);
+            }
+            // ------
+            // Weapon
+            // ------
+            else if (itemType.ToString() == "SaintCoinach.Xiv.Items.Weapon") {
+                var weapon = item as SaintCoinach.Xiv.Items.Weapon;
+
+                var parameters = "";
+
+                foreach (var param in weapon.AllParameters) {
+                    parameters += $"{param.BaseParam.Name}: `{param.Values.First()}`\n";
+                }
+
+                char canBeDyed = weapon.IsDyeable ? '\u2713' : '×';
+                char canbeConverted = weapon.IsConvertable ? '\u2713' : '×';
+                char isPvP = weapon.IsPvP ? '\u2713' : '×';
+
+                reply = $"__**Stats**__\n" +
+                $"Item Level: `{weapon.ItemLevel.Key}`\n" +
+                $"{parameters}\n" +
+                $"__**Misc**__\n" +
+                $"Convertable: {canbeConverted}\n" +
+                $"Dyeable: {canBeDyed}\n" +
+                $"PvP: {isPvP}\n\n";
+
+                Embed.WithDescription(reply)
+                    .WithFooter(new EmbedFooterBuilder()
+                    .WithText($"{weapon.EquipmentLevel.ToString()} {weapon.ClassJobCategory.Name}"))
+                    .Build();
+                await ReplyAsync("", embed: Embed);
+            }
+            // ------
+            // Shield
+            // ------
+            else if (itemType.ToString() == "SaintCoinach.Xiv.Items.Shield") {
+                var weapon = item as SaintCoinach.Xiv.Items.Weapon;
+
+                var parameters = "";
+
+                foreach (var param in weapon.AllParameters) {
+                    parameters += $"{param.BaseParam.Name}: `{param.Values.First()}`\n";
+                }
+
+                char canBeDyed = weapon.IsDyeable ? '\u2713' : '×';
+                char canbeConverted = weapon.IsConvertable ? '\u2713' : '×';
+                char isPvP = weapon.IsPvP ? '\u2713' : '×';
+
+                reply = $"__**Stats**__\n" +
+                $"Item Level: `{weapon.ItemLevel.Key}`\n" +
+                $"{parameters}\n" +
+                $"__**Misc**__\n" +
+                $"Convertable: {canbeConverted}\n" +
+                $"Dyeable: {canBeDyed}\n" +
+                $"PvP: {isPvP}\n\n";
+
+                Embed.WithDescription(reply)
+                    .WithFooter(new EmbedFooterBuilder()
+                    .WithText($"{weapon.EquipmentLevel.ToString()} {weapon.ClassJobCategory.Name}"))
+                    .Build();
+                await ReplyAsync("", embed: Embed);
+            }
+            // ---------
+            // Equipment
+            // ---------
+            else if (itemType.ToString() == "SaintCoinach.Xiv.Items.Equipment") {
+                var equipment = item as SaintCoinach.Xiv.Items.Equipment;
+
+                var parameters = "";
+
+                foreach (var param in equipment.AllParameters) {
+                    parameters += $"{param.BaseParam.Name}: `{param.Values.First()}`\n";
+                }
+
+                char canBeDyed = equipment.IsDyeable ? '\u2713' : '×';
+                char canbeConverted = equipment.IsConvertable ? '\u2713' : '×';
+                char isPvP = equipment.IsPvP ? '\u2713' : '×';
+
+
+                reply = $"__**Stats**__\n" +
+                $"Item Level: `{equipment.ItemLevel.Key}`\n" +
+                $"{parameters}\n" +
+                $"__**Misc**__\n" +
+                $"Convertable: {canbeConverted}\n" +
+                $"Dyeable: {canBeDyed}\n" +
+                $"PvP: {isPvP}\n\n";
+
+                Embed.WithDescription(reply)
+                    .WithFooter(new EmbedFooterBuilder()
+                    .WithText($"{equipment.EquipmentLevel.ToString()} {equipment.ClassJobCategory.Name}"))
+                    .Build();
+                await ReplyAsync("", embed: Embed);
+            }
+            // ------
+            // Armour
+            // ------
+            else if (itemType.ToString() == "SaintCoinach.Xiv.Items.Armour") {
                 var armour = item as SaintCoinach.Xiv.Items.Armour;
 
-            } else if (itemType.ToString() == "SaintCoinach.Xiv.Item") { // Generic Item
+                var parameters = "";
+
+                foreach (var param in armour.AllParameters) {
+                    parameters += $"{param.BaseParam.Name}: `{param.Values.First()}`\n";
+                }
+
+                char canBeDyed = armour.IsDyeable ? '\u2713' : '×';
+                char canbeConverted = armour.IsConvertable ? '\u2713' : '×';
+                char isPvP = armour.IsPvP ? '\u2713' : '×';
+
+
+                reply = $"__**Stats**__\n" +
+                $"Item Level: `{armour.ItemLevel.Key}`\n" +
+                $"{parameters}\n" +
+                $"__**Misc**__\n" +
+                $"Convertable: {canbeConverted}\n" +
+                $"Dyeable: {canBeDyed}\n" +
+                $"PvP: {isPvP}\n\n";
+
+                Embed.WithDescription(reply)
+                    .WithFooter(new EmbedFooterBuilder()
+                    .WithText($"{armour.EquipmentLevel.ToString()} {armour.ClassJobCategory.Name}"))
+                    .Build();
+                await ReplyAsync("", embed: Embed);
+
+            }
+            // ------
+            // Accessory
+            // ------
+            else if (itemType.ToString() == "SaintCoinach.Xiv.Items.Accessory") {
+                var accessory = item as SaintCoinach.Xiv.Items.Accessory;
+                var parameters = "";
+
+                foreach (var param in accessory.AllParameters) {
+                    parameters += $"{param.BaseParam.Name}: `{param.Values.First()}`\n";
+                }
+
+                char canBeDyed = accessory.IsDyeable ? '\u2713' : '×';
+                char canbeConverted = accessory.IsConvertable ? '\u2713' : '×';
+                char isPvP = accessory.IsPvP ? '\u2713' : '×';
+
+                reply = $"__**Stats**__\n" +
+                $"Item Level: `{accessory.ItemLevel.Key}`\n" +
+                $"{parameters}\n" +
+                $"__**Misc**__\n" +
+                $"Convertable: {canbeConverted}\n" +
+                $"Dyeable: {canBeDyed}\n" +
+                $"PvP: {isPvP}\n\n";
+
+                Embed.WithDescription(reply)
+                    .WithFooter(new EmbedFooterBuilder()
+                    .WithText($"{accessory.EquipmentLevel.ToString()} {accessory.ClassJobCategory.Name}"))
+                    .Build();
+                await ReplyAsync("", embed: Embed);
+            }
+            // ----
+            // SoulCrystal
+            // ----
+            else if (itemType.ToString() == "SoulCrystal") {
+                var soulCrystal = item as SaintCoinach.Xiv.Items.SoulCrystal;
+                var parameters = "";
+
+                foreach (var param in soulCrystal.AllParameters) {
+                    parameters += $"{param.BaseParam.Name}: `{param.Values.First()}`\n";
+                }
+
+                reply = $"__**Stats**__\n" +
+                $"Item Level: `{soulCrystal.ItemLevel.Key}`\n" +
+                $"{parameters}\n" +
+                $"{soulCrystal.Description}";
+
+                Embed.WithDescription(reply)
+                    .WithFooter(new EmbedFooterBuilder()
+                    .WithText($"{soulCrystal.EquipmentLevel.ToString()} {soulCrystal.ClassJobCategory.Name}"))
+                    .Build();
+                await ReplyAsync("", embed: Embed);
+            }
+            // ------------
+            // CraftingTool
+            // ------------
+            else if (itemType.ToString() == "SaintCoinach.Xiv.Items.CraftingTool") {
+                var craftingTool = item as SaintCoinach.Xiv.Items.CraftingTool;
+                var parameters = "";
+
+                foreach (var param in craftingTool.AllParameters) {
+                    parameters += $"{param.BaseParam.Name}: `{param.Values.First()}`\n";
+                }
+
+                char canBeDyed = craftingTool.IsDyeable ? '\u2713' : '×';
+                char canbeConverted = craftingTool.IsConvertable ? '\u2713' : '×';
+                char isPvP = craftingTool.IsPvP ? '\u2713' : '×';
+
+                reply = $"__**Stats**__\n" +
+                $"Item Level: `{craftingTool.ItemLevel.Key}`\n" +
+                $"{parameters}\n" +
+                $"__**Misc**__\n" +
+                $"Convertable: {canbeConverted}\n" +
+                $"Dyeable: {canBeDyed}\n" +
+                $"PvP: {isPvP}\n\n";
+
+                Embed.WithDescription(reply)
+                    .WithFooter(new EmbedFooterBuilder()
+                    .WithText($"{craftingTool.EquipmentLevel.ToString()} {craftingTool.ClassJobCategory.Name}"))
+                    .Build();
+                await ReplyAsync("", embed: Embed);
+            }
+            // ----
+            // GatheringTool
+            // ----
+            else if (itemType.ToString() == "SaintCoinach.Xiv.Items.GatheringTool") {
+                var gatheringTool = item as SaintCoinach.Xiv.Items.GatheringTool;
+                var parameters = "";
+
+                foreach (var param in gatheringTool.AllParameters) {
+                    parameters += $"{param.BaseParam.Name}: `{param.Values.First()}`\n";
+                }
+
+                char canBeDyed = gatheringTool.IsDyeable ? '\u2713' : '×';
+                char canbeConverted = gatheringTool.IsConvertable ? '\u2713' : '×';
+                char isPvP = gatheringTool.IsPvP ? '\u2713' : '×';
+
+                reply = $"__**Stats**__\n" +
+                $"Item Level: `{gatheringTool.ItemLevel.Key}`\n" +
+                $"{parameters}\n" +
+                $"__**Misc**__\n" +
+                $"Convertable: {canbeConverted}\n" +
+                $"Dyeable: {canBeDyed}\n" +
+                $"PvP: {isPvP}\n\n";
+
+                Embed.WithDescription(reply)
+                    .WithFooter(new EmbedFooterBuilder()
+                    .WithText($"{gatheringTool.EquipmentLevel.ToString()} {gatheringTool.ClassJobCategory.Name}"))
+                    .Build();
+                await ReplyAsync("", embed: Embed);
+            }
+            // -------
+            // Housing
+            // -------
+            else if (itemType.ToString() == "SaintCoinach.Xiv.Items.Housing") {
+                var housingItem = item as SaintCoinach.Xiv.Items.Housing;
+                reply = "";
+
+                if (!housingItem.Description.IsEmpty) {
+                    reply += $"__**Description**__\n" +
+                    $"```{housingItem.Description}```\n";
+                }
+
+                Embed.WithDescription(reply).Build();
+                await ReplyAsync("", embed: Embed);
+            }
+            // ------------
+            // MaterialItem
+            // ------------
+            else if (itemType.ToString() == "SaintCoinach.Xiv.Items.MateriaItem") {
+                var materiaItem = item as SaintCoinach.Xiv.Items.MateriaItem;
+                reply = "";
+
+                reply += $"__**Stats**__\n" +
+                    $"{materiaItem.BaseParam}: {materiaItem.Value}\n\n";
+
+                if (!materiaItem.Description.IsEmpty) {
+                    reply += $"__**Description**__\n" +
+                    $"```{materiaItem.Description}```\n";
+                }
+
+                Embed.WithDescription(reply).Build();
+                await ReplyAsync("", embed: Embed);
+            }
+            // ------
+            // Usable
+            // ------
+            else if (itemType.ToString() == "SaintCoinach.Xiv.Items.Usable") {
+                var usableItem = item as SaintCoinach.Xiv.Items.Usable;
+                reply = "";
+                reply = $"Cooldown: {usableItem.Cooldown}\n" +
+                    $"__**Description**__\n" +
+                    $"```{usableItem.Description}```\n";
+
+                Embed.WithDescription(reply).Build();
+                await ReplyAsync("", embed: Embed);
+            }
+            // ------------
+            // Generic item
+            // ------------
+            else if (itemType.ToString() == "SaintCoinach.Xiv.Item") {
                 reply = "";
 
                 if (!item.Description.IsEmpty) {

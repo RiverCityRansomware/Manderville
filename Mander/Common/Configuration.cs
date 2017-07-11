@@ -12,8 +12,8 @@ namespace Manderville.Common {
 		public static string FileName { get; private set; } = "config/configuration.json";
 		/// <summary> Ids of users who will have owner access to the bot </summary>
 		public ulong[] Owners { get; set; }
-		/// <summary> Your bot's command prefix. Don't forget the space afterwards!</summary>
-		public string Prefix { get; set; } = "!m ";
+
+        public string Prefix { get; set; }
 		/// <summary> Your bot's login token. </summary>
 		public string Token { get; set; } = "";
 
@@ -47,6 +47,8 @@ namespace Manderville.Common {
 			string file = Path.Combine(AppContext.BaseDirectory, FileName);
 			return JsonConvert.DeserializeObject<Configuration>(File.ReadAllText(file));
 		}
+
+        
 
 		/// <summary> Convert the configuration to a json string </summary>
 		public string ToJson()

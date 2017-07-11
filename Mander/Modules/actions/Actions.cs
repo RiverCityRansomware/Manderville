@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Manderville.Common;
 using SaintCoinach;
 using Manderville.Modules;
+using System.Xml;
 
 namespace Mander.Modules {
     [Group("Actions")]
@@ -102,13 +103,50 @@ namespace Mander.Modules {
             }
 
             Console.WriteLine($"action: {action.Name}");
+            var filePath = action.Icon.ToString();
+            var actionIcon = filePath.Substring(8,13);
+
+            var desc = "";
+
+
+            foreach (var child in action.Description.Children) {
+                //Console.WriteLine($"tag: {child.Tag} child: {child}");
+                
+
+                if (child.Tag.ToString().ToLower() == "none") {
+                    desc += $"{child.ToString()}";
+                } else if (child.Tag.ToString().ToLower() == "if") {
+                    var tagSplit = child.ToString().Split('<');
+                    foreach(var x in tagSplit) {
+                        //Console.WriteLine($"x: {x}");
+                        var ifSplit = x.Split('>');
+                        foreach(var y in ifSplit) {
+                            Console.WriteLine($"y: {y}");
+                            if (!y.Contains(')')) {
+                                if (!y.ToLower().Contains("color") &&
+                                    !y.ToLower().Contains("/else") &&
+                                    !y.ToLower().Contains("else/") &&
+                                    !y.ToLower().Contains("/if")   &&
+                                    !y.ToLower().Contains("if/")) {
+
+                                    desc += $"{y} ";
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
 
             var Embed = new EmbedBuilder()
                 .WithTitle(action.Name)
-                .WithDescription(action.Description)
+                .WithDescription(desc)
+                .WithUrl($"https://xivdb.com/action/{action.Key}")
+                .WithThumbnailUrl($"https://secure.xivdb.com/img/game/{actionIcon}.png")
                 .WithColor(new Color(250, 140, 73))
                 .Build();
 
+            Console.WriteLine($"id: {action.Key}\nIcon: https://secure.xivdb.com/img/game/{actionIcon}.png");
 
             await ReplyAsync("", embed: Embed);
 
