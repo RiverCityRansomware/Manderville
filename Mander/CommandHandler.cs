@@ -36,12 +36,12 @@ namespace Manderville {
             // Check if the message has either a string or mention prefix.
             int argPos = 0;
 
-            var settings = new GuildSettings();
+            //var settings = new GuildSettings();
 
             var context = new SocketCommandContext(_client, msg);
-            var name = context.Guild.Name;
-            Console.WriteLine($"name: {name}");
-            if (!(msg.HasStringPrefix(settings.Load(name).prefix, ref argPos) || msg.HasMentionPrefix(_client.CurrentUser, ref argPos))) return;
+            //var name = context.Guild.Name;
+            //Console.WriteLine($"name: {name}");
+            if (!(msg.HasStringPrefix(Common.Configuration.Load().Prefix, ref argPos) || msg.HasMentionPrefix(_client.CurrentUser, ref argPos))) return;
             
             var result = await _commands.ExecuteAsync(context, argPos, _provider);
             Console.WriteLine($"{context.Guild.Name}: {msg}");

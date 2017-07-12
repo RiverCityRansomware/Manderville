@@ -187,8 +187,7 @@ namespace Manderville.Modules {
             string reply;
             var Embed = new EmbedBuilder()
                     .WithTitle(item.Name)
-                    .WithUrl($"https://api.xivdb.com/item/{item.Key}")
-                    .WithThumbnailUrl($"https://secure.xivdb.com/img/game_local/{item.Key.ToString().First()}/{item.Key.ToString()}.jpg")
+                    .WithUrl($"https://xivdb.com/item/{item.Key}")
                     .WithColor(new Color(250, 140, 73));
 
             // --------------
@@ -215,7 +214,12 @@ namespace Manderville.Modules {
                 $"Dyeable: {canBeDyed}\n" +
                 $"PvP: {isPvP}\n\n";
 
+                //http://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/17/1780833b30b3d7a680c5ee89c79c9240214806a9.png?20170711
+
+                Console.WriteLine($"{physicalWeapon.Key}");
+
                 Embed.WithDescription(reply)
+                    .WithThumbnailUrl($"https://secure.xivdb.com/img/game_local/{item.Key.ToString().First()}/{item.Key.ToString()}.jpg")
                     .WithFooter(new EmbedFooterBuilder()
                     .WithText($"{physicalWeapon.EquipmentLevel.ToString()} {physicalWeapon.ClassJobCategory.Name}"))
                     .Build();
@@ -247,6 +251,7 @@ namespace Manderville.Modules {
                 $"PvP: {isPvP}\n\n";
 
                 Embed.WithDescription(reply)
+                    .WithThumbnailUrl($"https://secure.xivdb.com/img/game_local/{item.Key.ToString().First()}/{item.Key.ToString()}.jpg")
                     .WithFooter(new EmbedFooterBuilder()
                     .WithText($"{magicWeapon.EquipmentLevel.ToString()} {magicWeapon.ClassJobCategory.Name}"))
                     .Build();
@@ -277,6 +282,7 @@ namespace Manderville.Modules {
                 $"PvP: {isPvP}\n\n";
 
                 Embed.WithDescription(reply)
+                    .WithThumbnailUrl($"https://secure.xivdb.com/img/game_local/{item.Key.ToString().First()}/{item.Key.ToString()}.jpg")
                     .WithFooter(new EmbedFooterBuilder()
                     .WithText($"{weapon.EquipmentLevel.ToString()} {weapon.ClassJobCategory.Name}"))
                     .Build();
@@ -307,6 +313,7 @@ namespace Manderville.Modules {
                 $"PvP: {isPvP}\n\n";
 
                 Embed.WithDescription(reply)
+                    .WithThumbnailUrl($"https://secure.xivdb.com/img/game_local/{item.Key.ToString().First()}/{item.Key.ToString()}.jpg")
                     .WithFooter(new EmbedFooterBuilder()
                     .WithText($"{weapon.EquipmentLevel.ToString()} {weapon.ClassJobCategory.Name}"))
                     .Build();
@@ -338,6 +345,7 @@ namespace Manderville.Modules {
                 $"PvP: {isPvP}\n\n";
 
                 Embed.WithDescription(reply)
+                    .WithThumbnailUrl($"https://secure.xivdb.com/img/game_local/{item.Key.ToString().First()}/{item.Key.ToString()}.jpg")
                     .WithFooter(new EmbedFooterBuilder()
                     .WithText($"{equipment.EquipmentLevel.ToString()} {equipment.ClassJobCategory.Name}"))
                     .Build();
@@ -369,6 +377,7 @@ namespace Manderville.Modules {
                 $"PvP: {isPvP}\n\n";
 
                 Embed.WithDescription(reply)
+                    .WithThumbnailUrl($"https://secure.xivdb.com/img/game_local/{item.Key.ToString().First()}/{item.Key.ToString()}.jpg")
                     .WithFooter(new EmbedFooterBuilder()
                     .WithText($"{armour.EquipmentLevel.ToString()} {armour.ClassJobCategory.Name}"))
                     .Build();
@@ -399,6 +408,7 @@ namespace Manderville.Modules {
                 $"PvP: {isPvP}\n\n";
 
                 Embed.WithDescription(reply)
+                    .WithThumbnailUrl($"https://secure.xivdb.com/img/game_local/{item.Key.ToString().First()}/{item.Key.ToString()}.jpg")
                     .WithFooter(new EmbedFooterBuilder()
                     .WithText($"{accessory.EquipmentLevel.ToString()} {accessory.ClassJobCategory.Name}"))
                     .Build();
@@ -421,6 +431,7 @@ namespace Manderville.Modules {
                 $"{soulCrystal.Description}";
 
                 Embed.WithDescription(reply)
+                    .WithThumbnailUrl($"https://secure.xivdb.com/img/game_local/{item.Key.ToString().First()}/{item.Key.ToString()}.jpg")
                     .WithFooter(new EmbedFooterBuilder()
                     .WithText($"{soulCrystal.EquipmentLevel.ToString()} {soulCrystal.ClassJobCategory.Name}"))
                     .Build();
@@ -450,6 +461,7 @@ namespace Manderville.Modules {
                 $"PvP: {isPvP}\n\n";
 
                 Embed.WithDescription(reply)
+                    .WithThumbnailUrl($"https://secure.xivdb.com/img/game_local/{item.Key.ToString().First()}/{item.Key.ToString()}.jpg")
                     .WithFooter(new EmbedFooterBuilder()
                     .WithText($"{craftingTool.EquipmentLevel.ToString()} {craftingTool.ClassJobCategory.Name}"))
                     .Build();
@@ -479,6 +491,7 @@ namespace Manderville.Modules {
                 $"PvP: {isPvP}\n\n";
 
                 Embed.WithDescription(reply)
+                    .WithThumbnailUrl($"https://secure.xivdb.com/img/game_local/{item.Key.ToString().First()}/{item.Key.ToString()}.jpg")
                     .WithFooter(new EmbedFooterBuilder()
                     .WithText($"{gatheringTool.EquipmentLevel.ToString()} {gatheringTool.ClassJobCategory.Name}"))
                     .Build();
@@ -496,7 +509,10 @@ namespace Manderville.Modules {
                     $"```{housingItem.Description}```\n";
                 }
 
-                Embed.WithDescription(reply).Build();
+                Embed
+                    .WithThumbnailUrl($"https://secure.xivdb.com/img/game_local/{item.Key.ToString().First()}/{item.Key.ToString()}.jpg")
+                    .WithDescription(reply)
+                    .Build();
                 await ReplyAsync("", embed: Embed);
             }
             // ------------
@@ -514,7 +530,10 @@ namespace Manderville.Modules {
                     $"```{materiaItem.Description}```\n";
                 }
 
-                Embed.WithDescription(reply).Build();
+                Embed
+                    .WithThumbnailUrl($"https://secure.xivdb.com/img/game_local/{item.Key.ToString().First()}/{item.Key.ToString()}.jpg")
+                    .WithDescription(reply)
+                    .Build();
                 await ReplyAsync("", embed: Embed);
             }
             // ------
@@ -527,7 +546,10 @@ namespace Manderville.Modules {
                     $"__**Description**__\n" +
                     $"```{usableItem.Description}```\n";
 
-                Embed.WithDescription(reply).Build();
+                Embed
+                    .WithThumbnailUrl($"https://secure.xivdb.com/img/game_local/{item.Key.ToString().First()}/{item.Key.ToString()}.jpg")
+                    .WithDescription(reply)
+                    .Build();
                 await ReplyAsync("", embed: Embed);
             }
             // ------------
@@ -541,7 +563,10 @@ namespace Manderville.Modules {
                     $"```{item.Description}```\n";
                 }
 
-                Embed.WithDescription(reply).Build();
+                Embed
+                    .WithThumbnailUrl($"https://secure.xivdb.com/img/game_local/{item.Key.ToString().First()}/{item.Key.ToString()}.jpg")
+                    .WithDescription(reply)
+                    .Build();
                 await ReplyAsync("", embed: Embed);
             }
 
